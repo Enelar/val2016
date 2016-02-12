@@ -12,4 +12,5 @@ spl_autoload_register();
 include('vendor/autoload.php');
 $config = new yaml_config('conf.yaml');
 
-var_dump(db::Query("SELECT 1+1"));
+// test
+include('modules/sms/sms4b.php');
