@@ -3,7 +3,7 @@
 abstract class sms
 {
   protected $default_from;
-  abstract public function send($to, $message, $from = null);
+  abstract public function raw_send($to, $message, $from = null);
 
   protected function raw_curl($url, $get, $post = null)
   {
