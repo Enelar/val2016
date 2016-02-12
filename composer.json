@@ -1,0 +1,13 @@
+{
+  "name": "enelar/val2016",
+  "description": "Small sms sending service",
+  "license": "Apache-2.0",
+  "minimum-stability": "dev",
+  "require" :
+  {
+    "php": "~5.5",
+    "enelar/phpa2o" : "~0",
+    "mustangostang/spyc": "~0",
+    "enelar/phpsql": "~0"
+  }
+}
