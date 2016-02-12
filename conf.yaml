@@ -1,0 +1,7 @@
+db:
+  connection_string: pgsql://postgres@localhost/plov
+sms:
+  sms4b:
+    credentials:
+      login: none
+      password: none
