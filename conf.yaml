@@ -1,6 +1,7 @@
 db:
   connection_string: pgsql://postgres@localhost/plov
 sms:
+  from: Kupidon
   sms4b:
     credentials:
       login: Yana777

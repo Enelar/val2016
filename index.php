@@ -16,6 +16,3 @@ $config = new yaml_config('conf.yaml');
 include('modules/sms/sms4b.php');
 
 $sms = new sms4b();
-
-$ret = $sms->raw_send("+79213243303", "hello world", "");
-var_dump($ret);
