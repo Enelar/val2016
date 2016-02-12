@@ -5,14 +5,17 @@ abstract class sms
   protected $default_from;
   abstract public function raw_send($to, $message, $from = null);
 
-  protected function raw_curl($url, $get, $post = null)
+  protected function raw_curl($url, $get = [], $post = null, $headers = [])
   {
+    if (count($get))
+      $url .= '?'.http_build_query($get);
+
     $options =
     [
       CURLOPT_URL => $url,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_TIMEOUT => 5,
-      CURLOPT_HEADER => false,
+      CURLOPT_VERBOSE => TRUE,
     ];
 
     $post_options =
@@ -21,8 +24,18 @@ abstract class sms
       CURLOPT_POSTFIELDS => $post,
     ];
 
+    $headers_option =
+    [
+      CURLOPT_HTTPHEADER => $headers,
+    ];
+
     if (!is_null($post))
       $options += $post_options;
+    if (count($headers))
+      $options += $headers_option;
+
+    var_dump($options);
+    //die();
 
     $handle = curl_init();
     curl_setopt_array($handle, $options);

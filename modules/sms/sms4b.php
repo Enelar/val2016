@@ -6,7 +6,7 @@ class sms4b extends sms
 {
   private function load_credentials()
   {
-    return config()->sms->sms4b->credentials;
+    return conf()->sms->sms4b->credentials;
   }
 
   public function raw_send($to, $message, $from = null)
@@ -14,18 +14,29 @@ class sms4b extends sms
     $credentials = $this->load_credentials();
     $request =
     [
-      $credentials->login,
-      $credentials->password,
-      is_null($from) ? 'info' : $from,
-      $to,
-      $message
+      "Login" => $credentials->login,
+      "Password" => $credentials->password,
+      "Source" => is_null($from) ? 'info' : $from,
+      "Phone" => $to,
+      "Text" => $message
     ];
 
-    $this->raw_curl($request);
+    //return $this->request('SMS4B/SendSMS', $request);
+    return $this->raw_curl('SendSMS', $request);
   }
 
-  public function raw_curl($post, $get = null)
+  private function request($method, $params)
   {
-    return parent::raw_curl('https://sms4b.ru/ws/sms.asmx', $get, $post);
+    $url = 'https://sms4b.ru/ws/sms.asmx';
+
+    $soap = new SoapClient($url);
+    return $soap->__soapCall("SMS4B/$method", [$params]);
+  }
+
+  public function raw_curl($method, $params)
+  {
+    $url = "https://sms4b.ru/ws/sms.asmx/{$method}";
+
+    return parent::raw_curl($url, [], $params);
   }
 }
